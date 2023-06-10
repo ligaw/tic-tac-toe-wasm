@@ -84,7 +84,7 @@ impl GameWrapper {
         }
     }
 
-    pub fn make_mode(&mut self, x:usize, y:usize) -> Result<(), JsValue> {
+    pub fn make_move(&mut self, x:usize, y:usize) -> Result<(), JsValue> {
         self.game.make_move(x, y).map_err(|err| JsValue::from_str(&err.to_string()))
     }
 
@@ -136,7 +136,7 @@ mod tests {
         assert_eq!(game.make_move(1, 0), Ok(()));
         assert_eq!(game.make_move(0, 1), Ok(()));
         assert_eq!(game.make_move(1, 1), Ok(()));
-     assert_eq!(game.make_move(0, 2), Ok(()));
+        assert_eq!(game.make_move(0, 2), Ok(()));
         assert_eq!(game.check_win(), Some(Player::X));
     }
 }
