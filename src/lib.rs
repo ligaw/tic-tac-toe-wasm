@@ -22,6 +22,9 @@ impl GameState {
         }
     }
 
+    pub fn current_player(&self) -> Player {
+        self.current_player
+    }
     // Make a move
     pub fn make_move(&mut self, x: usize, y: usize) -> Result<(), &'static str> {
         if x > 2 || y > 2 {
@@ -82,6 +85,10 @@ impl GameWrapper {
         GameWrapper {
             game: GameState::new(),
         }
+    }
+
+    pub fn current_player(&self) -> Player {
+        self.game.current_player
     }
 
     pub fn make_move(&mut self, x:usize, y:usize) -> Result<(), JsValue> {
