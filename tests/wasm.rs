@@ -6,7 +6,11 @@ mod wasm {
     use tic_tac_toe::Player;
 
     #[wasm_bindgen_test]
-    pub fn test_move() {
+    pub fn test_start_game() {
         assert_eq!(GameWrapper::new().current_player(), Player::X);
+    }
+
+    pub fn test_move() {
+
     }
 }
