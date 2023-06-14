@@ -1,94 +1,95 @@
-pub use crate::Player;
+    use crate::Player;
 
-pub struct GameState {
-    board: Vec<Vec<Player>>,
-    current_player: Player,
-}
-
-impl GameState {
-    // Initialize a new game
-    pub fn new() -> GameState {
-        GameState {
-            board: vec![vec![Player::Empty; 3]; 3],
-            current_player: Player::X,
-        }
+    pub struct GameState {
+        board: Vec<Vec<Player>>,
+        current_player: Player,
     }
 
-    pub fn board(&self) -> &Vec<Vec<Player>> {
-        &self.board
-    }
-
-    pub fn current_player(&self) -> Player {
-        self.current_player
-    }
-    // Make a move
-    pub fn make_move(&mut self, x: usize, y: usize) -> Result<(), &'static str> {
-        if x > 2 || y > 2 {
-            return Err("Move is out of bounds");
-        }
-        if self.board[x][y] != Player::Empty {
-            return Err("Cell is already occupied");
-        }
-
-        self.board[x][y] = self.current_player;
-        self.current_player = match self.current_player {
-            Player::X => Player::O,
-            Player::O => Player::X,
-            Player::Empty => unreachable!(),
-        };
-
-        Ok(())
-    }
-
-    // Check if a player has won
-    pub fn check_win(&self) -> Option<Player> {
-        // Check rows
-        for row in &self.board {
-            if row[0] != Player::Empty && row[0] == row[1] && row[0] == row[2] {
-                return Some(row[0]);
+    impl GameState {
+        // Initialize a new game
+        pub fn new() -> GameState {
+            GameState {
+                board: vec![vec![Player::Empty; 3]; 3],
+                current_player: Player::X,
             }
         }
 
-        // Check columns
-        for col in 0..3 {
-            if self.board[0][col] != Player::Empty && self.board[0][col] == self.board[1][col] && self.board[0][col] == self.board[2][col] {
-                return Some(self.board[0][col]);
+        pub fn board(&self) -> Vec<Vec<Player>> {
+            self.board.clone()
+        }
+
+        pub fn current_player(&self) -> Player {
+            self.current_player
+        }
+        // Make a move
+        pub fn make_move(&mut self, x: usize, y: usize) -> Result<(), &'static str> {
+            if x > 2 || y > 2 {
+                return Err("Move is out of bounds");
             }
+            if self.board[x][y] != Player::Empty {
+                return Err("Cell is already occupied");
+            }
+
+            self.board[x][y] = self.current_player;
+            self.current_player = match self.current_player {
+                Player::X => Player::O,
+                Player::O => Player::X,
+                Player::Empty => unreachable!(),
+            };
+
+            Ok(())
         }
 
-        // Check diagonals
-        if self.board[0][0] != Player::Empty && self.board[0][0] == self.board[1][1] && self.board[0][0] == self.board[2][2] {
-            return Some(self.board[0][0]);
-        }
-        if self.board[0][2] != Player::Empty && self.board[0][2] == self.board[1][1] && self.board[0][2] == self.board[2][0] {
-            return Some(self.board[0][2]);
-        }
+        // Check if a player has won
+        pub fn check_win(&self) -> Option<Player> {
+            // Check rows
+            for row in &self.board {
+                if row[0] != Player::Empty && row[0] == row[1] && row[0] == row[2] {
+                    return Some(row[0]);
+                }
+            }
 
-        None
+            // Check columns
+            for col in 0..3 {
+                if self.board[0][col] != Player::Empty && self.board[0][col] == self.board[1][col] && self.board[0][col] == self.board[2][col] {
+                    return Some(self.board[0][col]);
+                }
+            }
+
+            // Check diagonals
+            if self.board[0][0] != Player::Empty && self.board[0][0] == self.board[1][1] && self.board[0][0] == self.board[2][2] {
+                return Some(self.board[0][0]);
+            }
+            if self.board[0][2] != Player::Empty && self.board[0][2] == self.board[1][1] && self.board[0][2] == self.board[2][0] {
+                return Some(self.board[0][2]);
+            }
+
+            None
+        }
     }
-}
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::Player;
+    use super::GameState;
 
     #[test]
     fn test_new_game() {
         let game = GameState::new();
-        for row in game.board.iter() {
+        for row in game.board().iter() {
             for cell in row.iter() {
                 assert_eq!(*cell, Player::Empty);
             }
         }
-        assert_eq!(game.current_player, Player::X);
+        assert_eq!(game.current_player(), Player::X);
     }
 
     #[test]
     fn test_make_move() {
         let mut game = GameState::new();
         assert_eq!(game.make_move(0, 0), Ok(()));
-        assert_eq!(game.board[0][0], Player::X);
-        assert_eq!(game.current_player, Player::O);
+        assert_eq!(game.board()[0][0], Player::X);
+        assert_eq!(game.current_player(), Player::O);
     }
 
     #[test]

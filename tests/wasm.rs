@@ -11,6 +11,10 @@ mod wasm {
     }
 
     pub fn test_move() {
-
+        let mut game_wrapper = GameWrapper::new();
+        //let board: Vec<Vec<Player>> = game_wrapper.board().into_serde().unwrap();
+        game_wrapper.make_move(1,1);
+        //assert_eq!(board, Player::X);
+        assert_eq!(game_wrapper.current_player(), Player::O);
     }
 }
