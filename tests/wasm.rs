@@ -10,11 +10,12 @@ mod wasm {
         assert_eq!(GameWrapper::new().current_player(), Player::X);
     }
 
+    #[wasm_bindgen_test]
     pub fn test_move() {
         let mut game_wrapper = GameWrapper::new();
-        //let board: Vec<Vec<Player>> = game_wrapper.board().into_serde().unwrap();
-        game_wrapper.make_move(1,1);
-        //assert_eq!(board, Player::X);
+        game_wrapper.make_move(1,1).unwrap();
         assert_eq!(game_wrapper.current_player(), Player::O);
+
+        //Ok(())
     }
 }
