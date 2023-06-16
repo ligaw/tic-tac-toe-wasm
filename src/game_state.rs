@@ -21,7 +21,7 @@
         pub fn current_player(&self) -> Player {
             self.current_player
         }
-        // Make a move
+
         pub fn make_move(&mut self, x: usize, y: usize) -> Result<(), &'static str> {
             if x > 2 || y > 2 {
                 return Err("Move is out of bounds");
@@ -40,7 +40,6 @@
             Ok(())
         }
 
-        // Check if a player has won
         pub fn check_win(&self) -> Option<Player> {
             // Check rows
             for row in &self.board {
