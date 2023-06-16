@@ -28,7 +28,8 @@
   },
   "homepage": "https://github.com/rustwasm/create-wasm-app#readme",
   "dependencies": {
-    "tic-tac-toe": "file:../pkg""vue": "^3.2.47"
+    "tic-tac-toe": "file:../pkg",
+    "vue": "^3.2.47"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
