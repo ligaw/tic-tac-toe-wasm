@@ -1,3 +1,3 @@
-import * as wasm from "tic-tac-toe";
+import * as wasm from "wasm";
 
-wasm.greet();
+console.log(wasm.healthcheck());

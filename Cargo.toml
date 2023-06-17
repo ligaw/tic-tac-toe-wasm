@@ -3,9 +3,6 @@ name = "tic_tac_toe"
 version = "0.1.0"
 edition = "2021"
 
-[scripts]
-test =  "wasm-pack test --headless --firefox"
-build = "wasm-pack build --target web --out-name wasm --out-dir ./www"
 
 [lib]
 name = "tic_tac_toe"
