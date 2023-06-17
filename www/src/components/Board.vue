@@ -1,25 +1,17 @@
 <script setup lang="ts">
+  import Square from "./Square.vue"
+  
+  function make_move(column, row) {
+    console.log(column, row);
+  }
 </script>
 
 <template>
   <div id="board" class="grid grid-cols-3 gap-3 h-full bg-amber-700">
-    <div>0,0</div>
-    <div>0,1</div>
-    <div>0,2</div>
-    <div>1,0</div>
-    <div>1,1</div>
-    <div>1,2</div>
-    <div>2,0</div>
-    <div>2,1</div>
-    <div>2,2</div>
+  <template v-for="column in [1,2,3]">
+    <template v-for="row in [1,2,3]">
+      <Square @make-move="make_move" :column="column" :row="row" />    
+    </template>
+  </template>
   </div>
 </template>
-
-<style scoped>
-#board div {
-  background-color: #fff;
-  display: flex;
-  justify-content: center;
-  place-items: center;
-}
-</style>
