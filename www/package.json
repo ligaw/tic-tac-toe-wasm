@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/rustwasm/create-wasm-app#readme",
   "dependencies": {
+    "pinia": "^2.1.4",
     "vue": "^3.2.47",
     "wasm": "file:../pkg"
   },

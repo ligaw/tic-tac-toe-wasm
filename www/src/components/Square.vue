@@ -1,12 +1,15 @@
-<script setup lang="ts">
-	defineProps<{
-	  column: number
-	  row: number
-	}>()
+<script setup>
+  import { useWasmStore } from '@/stores/store.js'
+
+  const store = useWasmStore()
+  const props = defineProps({
+    row: null,
+    column: null
+  })
 </script>
 
 <template>
-  <div @click="$emit('make-move', row, column)"></div>
+  <div @click="store.makeMove(row, column)"></div>
 </template>
 
 <style scoped>

@@ -9,5 +9,10 @@ export default defineConfig({
     topLevelAwait(),
     vue(),
     wasm()
-  ]
+  ],
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  }
 })
