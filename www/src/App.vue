@@ -4,10 +4,8 @@ import { useWasmStore } from '@/stores/store.js'
 import { onMounted, onDeactivated } from 'vue'
 
 onMounted(() => {
-  console.log("mounting module")
   const store = useWasmStore()
   store.initializeWasm()
-  console.log("mounted was module")
 });
 
 onDeactivated(() => {

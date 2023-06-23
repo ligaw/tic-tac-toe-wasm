@@ -1,4 +1,5 @@
 use wasm_bindgen::prelude::*;
+use web_sys::console;
 
 mod game_state;
 mod game_wrapper;
@@ -8,8 +9,8 @@ pub use game_state::GameState;
 pub use game_wrapper::GameWrapper;
 pub use player::Player;
 
-
 #[wasm_bindgen]
-pub fn healthcheck() -> String {
-    "OK".to_string()
+pub fn health_check() -> String {
+    console::log_1(&"healthcheck".into());
+    "successful".to_string()
 }

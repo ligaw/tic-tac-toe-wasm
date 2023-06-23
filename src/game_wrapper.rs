@@ -1,8 +1,8 @@
 use crate::GameState;
 use crate::Player;
-use wasm_bindgen::JsValue;
-use wasm_bindgen::prelude::*;
 use serde_wasm_bindgen::to_value;
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsValue;
 
 #[wasm_bindgen]
 pub struct GameWrapper {
@@ -17,7 +17,7 @@ impl GameWrapper {
             game: GameState::new(),
         }
     }
-    
+
     pub fn board(&self) -> JsValue {
         to_value(&self.game.board()).unwrap().into()
     }
@@ -26,12 +26,13 @@ impl GameWrapper {
         self.game.current_player()
     }
 
-    pub fn make_move(&mut self, x:usize, y:usize) -> Result<(), JsValue> {
-        self.game.make_move(x, y).map_err(|err| JsValue::from_str(&err.to_string()))
+    pub fn make_move(&mut self, cell: usize) -> Result<(), JsValue> {
+        self.game
+            .make_move(cell)
+            .map_err(|err| JsValue::from_str(&err.to_string()))
     }
 
     pub fn check_win(&self) -> Option<Player> {
         self.game.check_win()
     }
 }
-

@@ -3,13 +3,13 @@
 
   const store = useWasmStore()
   const props = defineProps({
-    row: null,
-    column: null
+    cell: null,
+    value: null
   })
 </script>
 
 <template>
-  <div @click="store.makeMove(row, column)"></div>
+  <div @click="store.makeMove(cell)">{{ value }} <br />{{ cell }}</div>
 </template>
 
 <style scoped>
