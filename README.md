@@ -1,7 +1,7 @@
 # Tic Tac Toe wasm
 
 ## Building
-- wasm-pack build --target bundler --out-name wasm --out-dir ./pkg"
+- wasm-pack build --target bundler --out-name wasm --out-dir ./pkg
 
 ## Tests
 - cargo test
