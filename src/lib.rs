@@ -8,5 +8,5 @@ pub use game_wrapper::GameWrapper;
 
 #[wasm_bindgen]
 pub fn health_check() -> String {
-    "healthcheck successful".to_string()
+    "202307212137".to_string()
 }

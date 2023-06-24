@@ -4,17 +4,16 @@ import { ref } from 'vue'
 
 export const useWasmStore = defineStore('wasm', () => {
   const boardState = ref([null, null, null, null, null, null, null, null, null])
+  let wasmModule
+
   function initializeWasm() {
-    console.log(wasm.health_check())
-    const module = new wasm.GameWrapper()
-    boardState.value = module.board();
+    wasmModule = new wasm.GameWrapper()
+    boardState.value = wasmModule.board();
   }
 
   function makeMove(cell) {
-    const module = new wasm.GameWrapper()
-    module.make_move(cell)
-    boardState.value = module.board()
-    console.log("Made Move")
+    wasmModule.make_move(cell)
+    boardState.value = wasmModule.board()
   }
 
   return { boardState, initializeWasm, makeMove }

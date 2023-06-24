@@ -4,12 +4,12 @@
   const store = useWasmStore()
   const props = defineProps({
     cell: null,
-    value: null
+    cellValue: null
   })
 </script>
 
 <template>
-  <div @click="store.makeMove(cell)">{{ value }} <br />{{ cell }}</div>
+  <div @click="store.makeMove(cell)">{{ cellValue == 'Empty' ? '' : cellValue }}</div>
 </template>
 
 <style scoped>
