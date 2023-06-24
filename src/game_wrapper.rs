@@ -1,5 +1,4 @@
-use crate::GameState;
-use crate::Player;
+use crate::game_state::GameState;
 use serde_wasm_bindgen::to_value;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
@@ -22,7 +21,7 @@ impl GameWrapper {
         to_value(&self.game.board()).unwrap().into()
     }
 
-    pub fn current_player(&self) -> Player {
+    pub fn current_player(&self) -> crate::player::Player {
         self.game.current_player()
     }
 
@@ -32,7 +31,7 @@ impl GameWrapper {
             .map_err(|err| JsValue::from_str(&err.to_string()))
     }
 
-    pub fn check_win(&self) -> Option<Player> {
+    pub fn check_win(&self) -> Option<crate::player::Player> {
         self.game.check_win()
     }
 }

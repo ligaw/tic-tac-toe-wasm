@@ -9,7 +9,6 @@ pub enum Player {
     O,
 }
 
-
 impl Serialize for Player {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -23,4 +22,3 @@ impl Serialize for Player {
         serializer.serialize_str(value)
     }
 }
-

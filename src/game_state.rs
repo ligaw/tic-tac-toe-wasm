@@ -1,4 +1,4 @@
-use crate::Player;
+use crate::player::Player;
 
 pub struct GameState {
     board: [Player; 9],
@@ -56,7 +56,7 @@ impl GameState {
 #[cfg(test)]
 mod tests {
     use super::GameState;
-    use crate::Player;
+    use super::Player;
 
     #[test]
     fn test_new_game() {
