@@ -1,8 +1,8 @@
-pub mod game_state;
+use wasm_bindgen::prelude::*;
+
+mod game_state;
 pub mod game_wrapper;
 pub mod player;
-
-use wasm_bindgen::prelude::*;
 
 pub use game_wrapper::GameWrapper;
 
