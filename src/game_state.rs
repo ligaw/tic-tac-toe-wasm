@@ -39,45 +39,64 @@ impl GameState {
         Ok(())
     }
 
-    pub fn check_win(&self) -> Option<Player> {
-        //check rows
-        if self.board[0] != Player::Empty
-            && self.board[0] == self.board[1]
-            && self.board[1] == self.board[2]
+    fn check_row(&self, cell: usize) -> Option<Player> {
+        if self.board[cell] == self.board[cell + 1] && self.board[cell + 1] == self.board[cell + 2]
         {
-            return Some(self.board[0]);
+            return Some(self.board[cell]);
         }
-        if self.board[3] != Player::Empty
-            && self.board[3] == self.board[4]
-            && self.board[4] == self.board[5]
-        {
-            return Some(self.board[3]);
-        }
-        if self.board[6] != Player::Empty
-            && self.board[6] == self.board[7]
-            && self.board[7] == self.board[8]
-        {
-            return Some(self.board[6]);
-        }
+        None
+    }
 
-        //check columns
-        if self.board[0] != Player::Empty
-            && self.board[0] == self.board[3]
-            && self.board[3] == self.board[6]
+    fn check_column(&self, cell: usize) -> Option<Player> {
+        if self.board[cell] == self.board[cell + 3] && self.board[cell + 3] == self.board[cell + 6]
         {
-            return Some(self.board[0]);
+            return Some(self.board[cell]);
         }
-        if self.board[1] != Player::Empty
-            && self.board[1] == self.board[4]
-            && self.board[4] == self.board[7]
-        {
-            return Some(self.board[1]);
-        }
-        if self.board[2] != Player::Empty
-            && self.board[2] == self.board[5]
-            && self.board[5] == self.board[8]
-        {
-            return Some(self.board[2]);
+        None
+    }
+    pub fn check_win(&self) -> Option<Player> {
+        let mandatory_cells = [0, 1, 2, 3, 6];
+        for cell in mandatory_cells {
+            if self.board[cell] == Player::Empty {
+                continue;
+            }
+            match cell {
+                0 => {
+                    match self.check_column(cell) {
+                        Some(_) => return Some(self.board[cell]),
+                        None => {}
+                    };
+                    match self.check_row(cell) {
+                        None => {}
+                        Some(_) => return Some(self.board[cell]),
+                    };
+                }
+                1 => {
+                    match self.check_column(cell) {
+                        Some(_) => return Some(self.board[cell]),
+                        None => {}
+                    };
+                }
+                2 => {
+                    match self.check_column(cell) {
+                        Some(_) => return Some(self.board[cell]),
+                        None => {}
+                    };
+                }
+                3 => {
+                    match self.check_row(cell) {
+                        Some(_) => return Some(self.board[cell]),
+                        None => {}
+                    };
+                }
+                6 => {
+                    match self.check_row(cell) {
+                        Some(_) => return Some(self.board[cell]),
+                        None => {}
+                    };
+                }
+                _ => {}
+            }
         }
 
         //check diagonals
