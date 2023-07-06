@@ -6,7 +6,6 @@ pub struct GameState {
 }
 
 impl GameState {
-    // Initialize a new game
     pub fn new() -> GameState {
         GameState {
             board: [Player::Empty; 9],
@@ -41,12 +40,59 @@ impl GameState {
     }
 
     pub fn check_win(&self) -> Option<Player> {
-        // Check rows
+        //check rows
         if self.board[0] != Player::Empty
             && self.board[0] == self.board[1]
-            && self.board[0] == self.board[2]
+            && self.board[1] == self.board[2]
         {
             return Some(self.board[0]);
+        }
+        if self.board[3] != Player::Empty
+            && self.board[3] == self.board[4]
+            && self.board[4] == self.board[5]
+        {
+            return Some(self.board[3]);
+        }
+        if self.board[6] != Player::Empty
+            && self.board[6] == self.board[7]
+            && self.board[7] == self.board[8]
+        {
+            return Some(self.board[6]);
+        }
+
+        //check columns
+        if self.board[0] != Player::Empty
+            && self.board[0] == self.board[3]
+            && self.board[3] == self.board[6]
+        {
+            return Some(self.board[0]);
+        }
+        if self.board[1] != Player::Empty
+            && self.board[1] == self.board[4]
+            && self.board[4] == self.board[7]
+        {
+            return Some(self.board[1]);
+        }
+        if self.board[2] != Player::Empty
+            && self.board[2] == self.board[5]
+            && self.board[5] == self.board[8]
+        {
+            return Some(self.board[2]);
+        }
+
+        //check diagonals
+        if self.board[0] != Player::Empty
+            && self.board[0] == self.board[4]
+            && self.board[4] == self.board[8]
+        {
+            return Some(self.board[0]);
+        }
+
+        if self.board[2] != Player::Empty
+            && self.board[2] == self.board[4]
+            && self.board[4] == self.board[6]
+        {
+            return Some(self.board[2]);
         }
 
         None
@@ -89,13 +135,46 @@ mod tests {
     }
 
     #[test]
-    fn test_check_win() {
+    fn test_no_winner() {
+        let mut game = GameState::new();
+        assert_eq!(game.check_win(), None);
+
+        assert_eq!(game.make_move(0), Ok(()));
+        assert_eq!(game.make_move(3), Ok(()));
+        assert_eq!(game.make_move(1), Ok(()));
+        assert_eq!(game.make_move(4), Ok(()));
+        assert_eq!(game.check_win(), None);
+    }
+
+    #[test]
+    fn test_check_row_win() {
         let mut game = GameState::new();
         assert_eq!(game.make_move(0), Ok(()));
         assert_eq!(game.make_move(3), Ok(()));
         assert_eq!(game.make_move(1), Ok(()));
         assert_eq!(game.make_move(4), Ok(()));
         assert_eq!(game.make_move(2), Ok(()));
+        assert_eq!(game.check_win(), Some(Player::X));
+    }
+
+    #[test]
+    fn test_check_column_win() {
+        let mut game = GameState::new();
+        assert_eq!(game.make_move(0), Ok(()));
+        assert_eq!(game.make_move(2), Ok(()));
+        assert_eq!(game.make_move(3), Ok(()));
+        assert_eq!(game.make_move(4), Ok(()));
+        assert_eq!(game.make_move(6), Ok(()));
+        assert_eq!(game.check_win(), Some(Player::X));
+    }
+    #[test]
+    fn test_check_diagonal_win() {
+        let mut game = GameState::new();
+        assert_eq!(game.make_move(0), Ok(()));
+        assert_eq!(game.make_move(2), Ok(()));
+        assert_eq!(game.make_move(4), Ok(()));
+        assert_eq!(game.make_move(3), Ok(()));
+        assert_eq!(game.make_move(8), Ok(()));
         assert_eq!(game.check_win(), Some(Player::X));
     }
 }
