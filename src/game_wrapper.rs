@@ -29,7 +29,7 @@ impl GameWrapper {
     pub fn make_move(&mut self, cell: usize) -> Result<(), JsValue> {
         self.game
             .make_move(cell)
-            .map_err(|err| JsValue::from_str(err))
+            .map_err(JsValue::from_str)
     }
 
     pub fn check_win(&self) -> Option<crate::player::Player> {
