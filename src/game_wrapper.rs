@@ -19,7 +19,7 @@ impl GameWrapper {
     }
 
     pub fn board(&self) -> JsValue {
-        to_value(&self.game.board()).unwrap().into()
+        to_value(&self.game.board()).unwrap()
     }
 
     pub fn current_player(&self) -> Player {
@@ -29,7 +29,7 @@ impl GameWrapper {
     pub fn make_move(&mut self, cell: usize) -> Result<(), JsValue> {
         self.game
             .make_move(cell)
-            .map_err(|err| JsValue::from_str(&err.to_string()))
+            .map_err(|err| JsValue::from_str(err))
     }
 
     pub fn check_win(&self) -> Option<crate::player::Player> {

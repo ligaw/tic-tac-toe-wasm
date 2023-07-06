@@ -14,7 +14,7 @@ impl GameState {
     }
 
     pub fn board(&self) -> [Player; 9] {
-        self.board.clone()
+        self.board
     }
 
     pub fn current_player(&self) -> Player {
